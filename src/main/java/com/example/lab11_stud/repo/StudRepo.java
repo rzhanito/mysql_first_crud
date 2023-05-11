@@ -20,24 +20,14 @@ public class StudRepo {
         jdbcTemplate.update(sql, student.getCourse(), student.getFullName(), student.getGroupName(), student.getSpecialty());
     }
 
-    public void deleteStudent(String fullName) {
-        String sql = "delete from students where fullName = ?";
-        jdbcTemplate.update(sql, String.valueOf(fullName));
+    public void deleteStudent(Long id) {
+        String sql = "delete from students where id = ?";
+        jdbcTemplate.update(sql, Long.valueOf(id));
     }
 
     public void updateStudent(Student student) {
-        String sql2 = "SELECT * from students where fullName = ?";
-        RowMapper studRowMap = (r,i)->{
-            Student stud = new Student();
-            stud.setId(r.getInt("id"));
-            stud.setCourse(r.getInt("course"));
-            stud.setFullName(r.getString("fullName"));
-            stud.setGroupName(r.getString("groupName"));
-            stud.setSpecialty(r.getString("specialty"));
-            return stud;
-        };
-        String sql = "UPDATE students SET (course = ?, groupName = ?, specialty = ?) WHERE fullName = ?";
-        jdbcTemplate.update(sql, student.getCourse(), student.getGroupName(), student.getSpecialty(), student.getFullName());
+        String sql = "update students set course = ?, fullName = ?, groupName = ?, specialty = ? where id = ?";
+        jdbcTemplate.update(sql, student.getCourse(), student.getFullName(), student.getGroupName(), student.getSpecialty(), student.getId());
     }
 
     public List<Student> findAllStudents() {

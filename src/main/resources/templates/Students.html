@@ -11,6 +11,7 @@
         <table class="table">
 <thead class="thead-light">
 <tr>
+    <th scope="col">ID</th>
 <th scope="col">ФИО</th>
 <th scope="col">Курс</th>
 <th scope="col">Группа</th>
@@ -19,6 +20,7 @@
 </thead>
             <tbody>
             <tr th:each="s:${students}">
+                <td th:text="${s.id}"></td>
                 <td th:text="${s.fullName}"></td>
                 <td th:text="${s.course}"></td>
                 <td th:text="${s.groupName}"></td>
@@ -28,14 +30,14 @@
         </table>
     </div>
 <h4>Добавление нового студента</h4>
-    <form th:action="@{/student}" th:object="${student}" method="post">
+    <form th:action="@{/student-add}" th:object="${student}" method="post">
         <div class="col-sm-4 form-group">
             <label>ФИО</label>
             <input required type="text" class="form-control" th:field="*{fullName}">
         </div>
         <div class="col-sm-4 form-group">
             <label>Курс</label>
-            <input required type="text" step="any" class="form-control" th:field="*{course}">
+            <input required type="text" class="form-control" th:field="*{course}">
         </div>
         <div class="col-sm-4 form-group">
             <label>Группа</label>
@@ -52,8 +54,8 @@
 <h4>Удаление студента</h4>
     <form th:action="@{/student/delete}" method="get">
         <div class="col-sm-4 form-group">
-            <label>ФИО студента для удаления:</label>
-            <input type="text" name="fullName" required class="form-control">
+            <label>ID студента для удаления:</label>
+            <input type="text" name="id" required class="form-control">
         </div>
         <div class="col-sm-4 form-group">
             <button type="submit" class="btn btn-primary btn-block mt-3">Удалить</button>
@@ -62,12 +64,16 @@
 <h4>Изменение информации о студенте</h4>
     <form th:action="@{/student/upd}" method="post" th:object="${student}">
         <div class="col-sm-4 form-group">
-            <label>Найти по ФИО</label>
-            <input type="text" required name="fullName" class="form-control" th:field="*{fullName}">
+            <label>Найти по ID</label>
+            <input type="text" required name="id" class="form-control" th:field="*{id}">
+        </div>
+        <div class="col-sm-4 form-group">
+            <label>Новое ФИО</label>
+            <input type="text" class="form-control" th:field="*{fullName}">
         </div>
         <div class="col-sm-4 form-group">
             <label>Новый курс</label>
-            <input required type="text" step="any" name="course" class="form-control" th:field="*{course}">
+            <input required type="text" name="course" class="form-control" th:field="*{course}">
         </div>
         <div class="col-sm-4 form-group">
             <label>Новая группа</label>

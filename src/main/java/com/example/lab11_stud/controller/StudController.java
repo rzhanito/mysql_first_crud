@@ -20,16 +20,16 @@ public class StudController {
         model.addAttribute("student", new Student());
         return "Students.html";
     }
-    @PostMapping("/student")
+    @PostMapping("/student-add")
     public String storeStudent(@ModelAttribute Student student, Model model){
         studRepo.storeStudents(student);
         var students =studRepo.findAllStudents();
         model.addAttribute("students", students);
-        return "Students.html";
+        return "redirect:/student";
     }
     @GetMapping("/student/delete")
-    public String deleteStudent(@RequestParam String fullName){
-        studRepo.deleteStudent(fullName);
+    public String deleteStudent(@RequestParam Long id){
+        studRepo.deleteStudent(id);
         return "redirect:/student";
     }
     @PostMapping("/student/upd")
